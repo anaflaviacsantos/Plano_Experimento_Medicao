@@ -46,14 +46,14 @@ Este experimento compõe a parte prática do Trabalho de Conclusão de Curso (TC
 # 2. Contexto e problema
 # 2.1 Descrição do problema / oportunidade
 
-Problema: O desenvolvimento de sistemas de Machine Learning (ML) introduz complexidades que vão além do código tradicional, gerando tipos específicos de Dívida Técnica (TD). Embora existam estudos gerais sobre SATD (Self-Admitted Technical Debt) em ML, ainda não há clareza sobre como essas dívidas variam entre os diferentes domínios de aplicação (NLP, Visão Computacional e Dados Tabulares).
-Atualmente, a literatura trata o "ML" como um monólito. No entanto, a hipótese é que a natureza dos dados e das bibliotecas impõe "dores" distintas: um projeto de NLP pode sofrer mais com dependência de dados (Data Dependency), enquanto um de Visão Computacional pode lutar mais com performance (Performance).
+Problema: O desenvolvimento de sistemas de Machine Learning (ML) introduz complexidades que vão além do código tradicional, gerando tipos específicos de Dívida Técnica (TD). Embora existam estudos gerais sobre SATD (Self-Admitted Technical Debt) em ML, ainda não há clareza sobre como essas dívidas variam entre os diferentes domínios de aplicação, como Natural Language Processing, Visão Computacional e Dados Tabulares.
+Atualmente, a literatura trata o "ML" como um monólito. No entanto, a hipótese é que a natureza dos dados e das bibliotecas impõe problemas distintos.
 
-Oportunidade: Utilizar a taxonomia de 9 grupos proposta por OBrien et al. (2022) para classificar e comparar as SATDs. Com ela, será possível identificar perfis de dívida técnica auto admitida específicos para cada subárea, orientando a criação de ferramentas de suporte (linters, refatoração) especializadas por domínio.
+Oportunidade: Utilizar a taxonomia de 9 grupos proposta por OBrien et al. (2022) para classificar e comparar as SATDs. Com ela, será possível identificar perfis de dívida técnica auto admitida específicos para cada subárea, orientando a criação de ferramentas de suporte, como linters, de refatoração, especializadas por domínio.
 
 ## 2.2 Contexto organizacional e técnico
 
-Este experimento será conduzido no contexto de pesquisa acadêmica em Engenharia de Software para Inteligência Artificial (SE4AI). O ambiente de análise é o ecossistema de software livre (Open Source).
+Este experimento será conduzido no contexto de pesquisa acadêmica em Engenharia de Software para Inteligência Artificial (SE4AI). O ambiente de análise é o ecossistema de software Open Source.
 
 Ambiente de Desenvolvimento: O estudo foca em repositórios hospedados no GitHub.
 
@@ -81,17 +81,17 @@ Taxonomia abrangente: O trabalho seminal de OBrien et al. (2022) analisou 2.641 
 
 Para a classificação das dívidas, este experimento adotará estritamente a taxonomia de 9 Grupos de SATD em ML definida por OBrien et al. (2022):
 
-* Data Dependency: Dívidas relacionadas à integridade, fonte, versionamento e dependência dos dados (Ex: "TODO: normalize true states").
+* Data Dependency: Dívidas relacionadas à integridade, fonte, versionamento e dependência dos dados.
 
-* Code Dependency: Problemas decorrentes da interação com bibliotecas externas, APIs legadas ou código "glue" (Ex: "FIXME: interactions with matplotlib").
+* Code Dependency: Problemas decorrentes da interação com bibliotecas externas, APIs legadas ou código "glue".
 
-* Awareness: Comentários que indicam falta de conhecimento ou incerteza do desenvolvedor sobre o algoritmo ou sistema (Ex: "TODO: does this handle N-dim tensors correctly?").
+* Awareness: Comentários que indicam falta de conhecimento ou incerteza do desenvolvedor sobre o algoritmo ou sistema.
 
-* Configurable Options: Dívidas em hiperparâmetros ou configurações hard-coded (Ex: "TODO: remove magic number").
+* Configurable Options: Dívidas em hiperparâmetros ou configurações hard-coded.
 
 * Modularity: Problemas de design, acoplamento e má separação de responsabilidades no pipeline de ML.
 
-* Performance: Trechos de código lentos ou ineficientes identificados pelos devs (Ex: "TODO: optimize for CUDA").
+* Performance: Trechos de código lentos ou ineficientes identificados pelos devs.
 
 * Scalability: Problemas relacionados à capacidade do sistema de escalar com mais dados ou requisições.
 

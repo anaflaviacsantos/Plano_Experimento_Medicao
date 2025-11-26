@@ -116,51 +116,158 @@ A hipótese central é que a distribuição percentual desses 9 grupos mudará d
 
 Para alcançar o objetivo geral, definem-se 4 objetivos de conhecimento que buscam entender o fenômeno da dívida técnica:
 
-1. Determinar se determinados domínios exigem mais esforço de manutenção corretiva ou evolutiva declarado, ou seja, tem maior densidade de dívidas do que outros.
-
-2. Identificar quais categorias da taxonomia de OBrien et al. são as mais frequentes em cada tipo de problema de ML.
-
-3. Compreender como os desenvolvedores expressam a criticidade dessas dívidas (uso de termos de urgência, fixmes vs. todos) e a complexidade descrita nos comentários.
-
-4. Verificar se a popularidade, tamanho e estrutura de testes dos projetos influenciam a acumulação de diferentes tipos de SATD nos três domínios.
+1. Investigar se diferentes domínios tem densidades de dívida de formas distintas, verificando se a SATD tende a se espalhar pelo sistema ou se concentrar densamente em arquivos problemáticos específicos de cada área.
+2.  Analisar a associação estatística entre o domínio do problema e a categoria da dívida, determinando se cada área possui uma "assinatura" única de tipos de problemas.
+3. Comparar como desenvolvedores de diferentes áreas priorizam suas dívidas, analisando se há divergência na proporção de correções críticas (FIXME) versus melhorias (TODO) e na complexidade descritiva dos comentários entre os domínios.
+4. Verificar como fatores contextuais como idade do projeto, tamanho do arquivo e tamanho da equipe, influenciam a densidade e o tipo de dívida acumulada de maneira diferenciada em cada domínio.
 
 ## 3.3 Questões de pesquisa / de negócio
 
-| Objetivo Específico | Perguntas de Pesquisa (Questions) | Métricas Associadas (Metrics) |
-| ------------------- | --------------------------------------------------------------------------------------------------------| -----------------------------------------------------|
-| 1. Intensidade | Q1.1: Qual domínio apresenta a maior concentração de dívidas em relação ao volume de código produzido? | - Densidade Global de SATD<br> - Total de Arquivos com SATD |
-|	| Q1.2: A dívida técnica está espalhada uniformemente ou concentrada em poucos arquivos "problemáticos"? | - Coeficiente de Gini da SATD<br>- Porcentagem de Arquivos Afetados | 
-|	| Q1.3: Existe correlação entre o tamanho do arquivo e a quantidade de dívidas auto admitidas?	| - KLOC por Arquivo<br>- Contagem de SATD por Arquivo |
-| O2. Natureza (Taxonomia) | Q2.1: Projetos de NLP sofrem significativamente mais de Data Dependency do que os outros domínios?	| - Taxa de Data Dependency<br>- Contagem Absoluta por Tipo |
-|	| Q2.2: A dívida de Performance é o gargalo principal em projetos de Visão Computacional? | - Taxa de Performance Debt<br>- Contagem Absoluta por Tipo |
-|	| Q2.3: Qual domínio apresenta a maior diversidade de tipos de problemas? | - Entropia de Shannon dos Tipos<br>- Tipo Dominante (Moda) |
-| O3. Severidade/Urgência	| Q3.1: Qual domínio possui maior incidência de dívidas marcadas como críticas/bugs (FIXME) em vez de tarefas futuras (TODO)?	| - Razão FIXME/TODO<br>- Total de FIXME |
-|	| Q3.2: Os comentários de dívida são mais complexos e verbosos em algum domínio específico?	| - Comprimento Médio do Comentário<br>- Contagem de Palavras SATD |
-|	| Q3.3: Existe uso frequente de linguagem de "urgência" ou frustração nos comentários?	| - Taxa de Keywords de Urgência<br>- Taxa de Termos Negativos |
-| O4. Maturidade/Contexto	| Q4.1: Projetos mais populares (mais estrelas) tendem a ter menor densidade de dívida técnica?	| - Número de Estrelas<br>- Densidade Global de SATD |
-|	| Q4.2: A presença de uma cultura de testes (cobertura de arquivos de teste) reduz a incidência de SATD de Code Dependency?	| - Razão Código de Teste/Produção<br>- Taxa de Code Dependency |
-|	| Q4.3: Projetos com maior número de contribuidores geram mais dívidas de Modularity (coordenação)?	| - Número de Contribuidores<br>- Taxa de Modularity Debt |
+| Objetivo Específico | Perguntas de Pesquisa (Questions) | Métricas Associadas (Metrics)  |
+|--------|------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
+| O1. Intensidade e Distribuição | Q1.1: A densidade global de SATD difere estatisticamente entre os três domínios analisados? | - Densidade Global de SATD<br>- Média de SATD por Arquivo  |
+| | Q1.2: A concentração de dívida dentro dos projetos varia conforme o domínio? | - Coeficiente de Gini da SATD<br>- Porcentagem de Arquivos Afetados  |  
+| | Q1.3: Existe correlação entre o tamanho físico do arquivo (LOC) e a quantidade de SATD, e essa correlação é mais forte em algum domínio específico? | - Correlação de Pearson/Spearman<br>- KLOC do Arquivo<br>- SATD por Arquivo  |  
+| O2. Perfil Tipológico | Q2.1: Existe uma dependência estatística significativa entre o domínio e a categoria de dívida? | - Tabela de Contingência (Domínio x Tipo)<br>- Valor-p (Chi-Quadrado)  |
+| | Q2.2: Qual domínio apresenta a maior diversidade de tipos de dívida, indicando problemas mais heterogêneos? | - Entropia de Shannon dos Tipos<br>- Contagem de Tipos Únicos  |  
+| | Q2.3: O tipo de dívida predominante é distinto para cada um dos três domínios? | - Moda do Tipo de Dívida<br>- Frequência Relativa da Moda  |  
+| O3. Severidade e Comunicação | Q3.1: A proporção de dívidas marcadas como críticas (FIXME) em relação a melhorias (TODO) varia significativamente entre os domínios? | - Razão FIXME/TODO<br>- Contagem Absoluta de FIXME  |
+| | Q3.2: Os comentários de dívida em determinados domínios são mais verbosos/complexos, sugerindo problemas de maior carga cognitiva? | - Comprimento Médio do Comentário<br>- Contagem de Palavras  |  
+| | Q3.3: A frequência de termos de urgência (ex: "hack", "urgent", "now") nos comentários difere entre os domínios? | - Densidade de Keywords de Urgência  |  
+| O4. Maturidade e Contexto | Q4.1: Repositórios mais antigos tendem a reduzir ou aumentar sua densidade de dívida de forma diferente dependendo do domínio? | - Idade do Repositório<br>- Densidade Global de SATD  |
+| | Q4.2: O número de contribuidores no projeto impacta a densidade de dívida de maneira distinta entre NLP, CV e Tabular? | - Número de Contribuidores<br>- Densidade Global de SATD  |  
+| | Q4.3: Arquivos "legados" concentram tipos específicos de dívida em comparação a arquivos novos, variando por domínio? | - Idade do Arquivo<br>- Tipo de Dívida |  
         
 ## 3.4 Métricas associadas (GQM)
 
-| ID | Nome da Métrica	| Descrição	| Unidade |
-| ----- | --------------- | ----------------------------------------------------------------------------------- | -------------- | 
-| M01	| Densidade Global de SATD	| Razão entre o total de comentários SATD e o tamanho do projeto em milhares de linhas de código.	| SATD/KLOC |
-| M02	| Total de Arquivos com SATD	| Contagem absoluta de arquivos que contêm pelo menos um comentário classificado como SATD.	| Inteiro (Qtd) |
-| M03	| Porcentagem de Arquivos Afetados	| Porcentagem de arquivos do projeto que possuem SATD em relação ao total de arquivos.	| Porcentagem (%) |
-| M04	| Coeficiente de Gini da SATD	| Medida de desigualdade (0 a 1) que indica se a SATD está concentrada em poucos arquivos (perto de 1) ou bem distribuída (perto de 0).	| Escalar (0.0 - 1.0) |
-| M05	| KLOC por Arquivo	| Tamanho do arquivo em milhares de linhas de código (utilizado para normalização local).	| KLOC |
-| M06	| Contagem Absoluta por Tipo	| Número de ocorrências de cada um dos 9 tipos da taxonomia de OBrien (ex: Data, Design, Infra).	| Inteiro (Qtd) |
-| M07	| Taxa de tipos de dívida | A porcentagem que um tipo específico representa do total de SATD do projeto.	| Porcentagem (%) |
-| M08	| Entropia de Shannon dos Tipos	| Medida da diversidade de tipos de dívida encontrados. Valores altos indicam "um pouco de tudo", baixos indicam foco em um problema.	| Escalar (Bits) |
-| M09	| Razão FIXME/TODO	| Proporção entre comentários marcados como FIXME (geralmente bugs/críticos) sobre TODO (melhorias).	| Razão (Decimal) |
-| M10	| Comprimento Médio do Comentário	| Média de caracteres ou palavras nos comentários de SATD (indicativo de complexidade da explicação).	| Caracteres ou Palavras |
-| M11	| Taxa de Keywords de Urgência	| Proporção de comentários contendo palavras como "urgent", "now", "must", "hack", "error".	| Porcentagem (%) |
-| M12	| Número de Estrelas	| Quantidade de "Stars" do repositório no GitHub (proxy para popularidade/relevância).	| Inteiro (Qtd) |
-| M13	| Razão Código de Teste/Produção	| Razão entre KLOC de arquivos de teste (pasta tests/) e KLOC de arquivos de fonte.	| Razão (Decimal) |
-| M14	| Número de Contribuidores	| Total de autores únicos que fizeram commits no repositório (proxy para tamanho do time).	| Inteiro (Pessoas)| 
-| M15	| Taxa de Termos Negativos	| Frequência de palavras que denotam frustração ou sentimentos negativos fortes no comentário.	| Porcentagem (%)| 
+| ID | Nome da Métrica | Descrição | Unidade  |
+|---|---|---|---|
+| M01 | Densidade Global de SATD | Total de SATD dividido pelo tamanho total do projeto (normalização). | SATD / KLOC  |
+| M02 | SATD por Arquivo | Quantidade absoluta de comentários de dívida encontrados em um único arquivo de código. | Inteiro (Quantidade)  |
+| M03 | KLOC do Arquivo | Tamanho de um arquivo específico em milhares de linhas de código. | KLOC  |
+| M04 | Coeficiente de Gini da SATD | Medida estatística que indica o grau de concentração das dívidas nos arquivos do projeto. | Escalar (0.0 - 1.0)  |
+| M05 | Porcentagem de Arquivos Afetados | Razão entre arquivos com SATD > 0 e o total de arquivos do projeto. | Porcentagem (%)  |
+| M06 | Correlação de Pearson/Spearman | Coeficiente estatístico que mede a força da relação linear entre duas variáveis. | Escalar (-1.0 a 1.0)  |
+| M07 | Contagem por Tipo | Frequência absoluta de cada um dos 9 tipos da taxonomia de OBrien. | Inteiro (Qtd)  |
+| M08 | Entropia de Shannon dos Tipos | Medida de incerteza/diversidade da distribuição dos tipos de dívida dentro de um domínio. | Bits  |
+| M09 | Moda do Tipo de Dívida | A categoria de dívida que aparece com maior frequência no conjunto. | Categórica (Nominal)  |
+| M10 | Razão FIXME/TODO | Divisão entre o número de tags FIXME e o número de tags TODO. | Razão (Decimal)  |
+| M11 | Comprimento Médio do Comentário | Média de caracteres contidos na string do comentário de dívida. | Caracteres  |
+| M12 | Densidade de Keywords de Urgência | Frequência de palavras de urgência (urgent, critical, panic) sobre o total de palavras nos comentários. | Porcentagem |
+| M13 | Idade do Repositório | Tempo decorrido desde o primeiro commit até a data da coleta. | Dias  |
+| M14 | Número de Contribuidores | Contagem de autores distintos (e-mail/user) no histórico do git. | Inteiro (Pessoas)  |
+| M15 | Idade do Arquivo | Tempo decorrido desde a criação do arquivo no repositório. | Dias  |
+| M16 | Valor-p (Chi-Quadrado) | Resultado do teste de hipótese para verificar independência entre variáveis categóricas. | Probabilidade (0 a 1) |
 
+-----------------------------------------------------
+
+# 4. Escopo e contexto do experimento
+## 4.1 Escopo funcional / de processo (incluído e excluído)
+
+Incluído no Escopo:
+
+* Artefatos: Arquivos de código-fonte com extensão .py e arquivos de configuração relacionados (ex: requirements.txt) contidos na branch principal.
+* Domínios de ML: Repositórios categorizados explicitamente no GitHub com tópicos relacionados a Processamento de Linguagem Natural (NLP, transformers, text-mining).
+Visão Computacional (computer-vision, object-detection, image-processing) e Dados Tabulares/Clássico (tabular-data, scikit-learn, gradient-boosting).
+* Atividades: Mineração de comentários através de keywords (TODO, FIXME, HACK, XXX), classificação manual baseada na taxonomia de 9 tipos de OBrien et al. (2022) e análise estatística dos dados.
+* Período: Histórico de commits dos repositórios até a data de extração.
+
+Excluído do Escopo:
+* Outras linguagens: Arquivos em C++, R, Julia ou Java, mesmo que presentes no repositório.
+* Outros domínios: Projetos de Aprendizado por Reforço, Áudio/Fala ou Robótica, para manter a comparação focada nos três pilares principais.
+* Análise Dinâmica: Não haverá execução do código, treinamento de modelos ou testes de performance em tempo de execução.
+* Dívida não admitida: Dívidas técnicas identificadas apenas por ferramentas de análise estática ou code smells que não possuam um comentário explicativo do desenvolvedor não serão considerados.
+
+## 4.2 Contexto do estudo
+O estudo configura-se como uma pesquisa empírica observacional baseada em Mineração de Repositórios de Software (MSR).
+
+* Organização/Ambiente: Ecossistema Open Source GitHub.
+* Tipo de Projeto: Bibliotecas, frameworks e aplicações de Machine Learning de relevância comunitária filtrados por popularidade/estrelas.
+* Perfil dos Participantes: Desenvolvedores de software e cientistas de dados voluntários ou profissionais. A experiência é heterogênea, variando de estudantes a engenheiros sêniores de grandes corporações (ex: Google, Meta) que contribuem para projetos abertos.
+* Processo de Desenvolvimento: Varia por projeto, mas assume-se o uso de controle de versão e práticas modernas de Pull Requests.
+
+## 4.3 Premissas
+Para a viabilidade do experimento, assume-se que:
+
+* Os desenvolvedores utilizam comentários no código para documentar pendências e dívidas técnicas, refletindo a realidade do projeto.
+* A API do GitHub e os repositórios selecionados permanecerão públicos e acessíveis durante o período de coleta de dados.
+* As palavras-chave selecionadas (TODO, FIXME, HACK, XXX) cobrem a vasta maioria das dívidas auto admitidas, conforme validado na literatura prévia (Maldonado & Shihab).
+* A biblioteca PyDriller é capaz de iterar corretamente sobre o histórico de projetos massivos sem perda significativa de dados.
+  
+## 4.4 Restrições
+Limitações práticas e mandatórias para a execução do TCC:
+
+* A classificação manual dos tipos de dívida será realizada por apenas 1 pesquisador (o aluno), com validação pontual do orientador.
+* Devido à restrição humana, a classificação qualitativa detalhada será limitada a uma amostra estatisticamente representativa de aproximadamente 500 a 600 comentários no total, e não ao universo completo de dados extraídos.
+* O experimento deve ser concluído, analisado e redigido até no máximo novembro de 2026.
+* A mineração deve ser executável em computador pessoal padrão, inviabilizando uma análise de todos os repositórios disponíveis.
+
+## 4.5 Limitações previstas
+Fatores que podem ameaçar a validade ou generalização dos resultados:
+
+* Os resultados refletem projetos Open Source em Python. Não podem ser generalizados imediatamente para software proprietário ou outras linguagens.
+* A interpretação de um comentário como pertencente a uma categoria pode ser subjetiva. Mesmo usando a taxonomia de OBrien, existe o risco de viés do classificador único.
+* Projetos com muitas estrelas podem ter padrões de qualidade muito superiores à média do mercado, potencialmente subestimando a densidade real de dívida em projetos menores.
+* Dívidas descritas sem as palavras-chave padrão não serão detectadas.
+
+---------------------------------------------------------
+
+# 5. Stakeholders e impacto esperado
+## 5.1 Stakeholders principais
+Os grupos interessados ou afetados pelos resultados deste experimento dividem-se em duas categorias: acadêmicos e mebros da indústria.
+
+* Pesquisadores em Engenharia de Software (SE4AI): A comunidade acadêmica interessada na interseção entre IA e qualidade de software.
+* Engenheiros de Machine Learning e Cientistas de Dados: Profissionais que desenvolvem e mantêm as bibliotecas analisadas ou aplicações baseadas nelas.
+* Mantenedores de projetos Open Source: Os principais contribuidores dos repositórios analisados (ex: times da HuggingFace, Scikit-Learn, Ultralytics).
+* Criadores de ferramentas: Desenvolvedores de IDEs, linters e analisadores estáticos.
+* Equipe do projeto: O pesquisador e o orientador.
+  
+## 5.2 Interesses e expectativas dos stakeholders
+
+* Pesquisadores (SE4AI): Esperam evidências empíricas que validem se a taxonomia de dívida técnica auto admitida precisa ser especializada por domínio. 
+* Engenheiros de ML / Cientistas de Dados: Buscam diretrizes práticas sobre onde focar a atenção durante revisões de código. 
+* Mantenedores Open Source: Podem utilizar os resultados para identificar pontos cegos na manutenção de seus projetos. 
+* Criadores de ferramentas: Esperam insights para desenvolver novas regras de detecção automática.
+* Equipe do projeto: Buscam contribuir com a comunidade científica da área. 
+  
+## 5.3 Impactos potenciais no processo / produto
+Considerando a natureza observacional de dados históricos, os impactos são classificados da seguinte forma:
+
+Durante a execução:
+* Como o estudo utiliza repositórios públicos, não haverá interrupção ou alteração no fluxo de trabalho das equipes que mantêm esses softwares, nenhum código de produção será modificado.
+* A fase de classificação manual das dívidas é intensiva e pode impactar o cronograma do TCC se a amostra for subestimada.
+  
+Pós-Execução (Resultados e Conhecimento):
+* O estudo pode sugerir a alteração de guidelines de revisão de código em empresas de IA, recomendando que revisores verifiquem tipos de dívida específicos dependendo se o modelo é de Visão ou Texto.
+* Os resultados podem fundamentar a criação de ferramentas de auxílio ao desenvolvimento que priorizem a refatoração de um tipo de dívida específico para um dos domínios.
+* A publicação dos resultados aumenta a consciência sobre a importância de documentar dívidas técnicas de forma clara, incentivando melhores práticas de comentários entre desenvolvedores novatos.
+
+-----------------------------------------------------------
+
+# 6. Riscos de alto nível, premissas e critérios de sucesso
+## 6.1 Riscos de alto nível
+Identificação dos principais obstáculos que podem comprometer a execução ou a validade científica do TCC:
+
+* A classificação manual dos comentários na taxonomia de 9 tipos depende de interpretação humana. Existe o risco de inconsistência, onde o mesmo comentário poderia ser classificado de forma diferente em momentos distintos.O impacto principal é a baixa confiabilidade dos dados.
+* As keywords (TODO, FIXME) podem retornar comentários irrelevantes, por exemplo textos explicativos em strings, documentação gerada automaticamente, que não configuram dívida técnica real, assim aumentando o esforço manual de filtragem e possívelmente desencadeando a necessidade de minerar mais dados. 
+* Dificuldade em isolar repositórios de um só domínio, muitos projetos modernos de Deep Learning utilizam visão e texto simultaneamente, o que pode contaminar a comparação entre domínios.
+* A possibilidade de os testes estatísticos não rejeitarem a hipótese nula, indicando que não há diferença perceptível entre os domínios.
+
+## 6.2 Critérios de sucesso globais 
+O experimento será considerado bem-sucedido e seus dados válidos para defesa do TCC se:
+
+* For possível coletar e classificar uma amostra que garanta, no mínimo, 95% de nível de confiança e 5% de margem de erro para cada domínio (estimado em 500 a 600 comentários totais classificados).
+* A validação cruzada de uma sub-amostra (10% dos dados) atingir um índice Kappa de Cohen > 0.60 (concordância substancial) entre o pesquisador e uma segunda revisão (orientador ou reanálise temporal).
+* Os dados permitirem a execução dos testes de hipótese, gerando p-values conclusivos para as métricas de densidade e distribuição.
+* O script de mineração e os datasets gerados estiverem organizados de forma que qualquer outro pesquisador possa replicar a extração.
+  
+## 6.3 Critérios de parada antecipada 
+O experimento deverá ser interrompido ou reformulado antes da fase de análise se:
+* Não for possível identificar pelo menos 50 repositórios qualificados para um dos domínios.
+* Se, em uma extração piloto de 5 repositórios, verificar-se que mais de 60% dos comentários extraídos são falsos positivos, inviabilizando a limpeza manual dentro do prazo do TCC.
+* Se a biblioteca PyDriller apresentar incompatibilidade técnica intransponível com o histórico de grandes repositórios, exigindo o desenvolvimento de um minerador próprio do zero.
+
+  
 # 21. Referências 
 
 * OBRIEN, D. et al. "23 Shades of Self-Admitted Technical Debt: An Empirical Study on Machine Learning Software". In: Proceedings of the 30th ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering (ESEC/FSE '22). Singapore: ACM, 2022. pp. 734–746. DOI: https://doi.org/10.1145/3540250.3549088.

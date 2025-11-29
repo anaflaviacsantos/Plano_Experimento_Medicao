@@ -267,7 +267,190 @@ O experimento deverá ser interrompido ou reformulado antes da fase de análise 
 * Se, em uma extração piloto de 5 repositórios, verificar-se que mais de 60% dos comentários extraídos são falsos positivos, inviabilizando a limpeza manual dentro do prazo do TCC.
 * Se a biblioteca PyDriller apresentar incompatibilidade técnica intransponível com o histórico de grandes repositórios, exigindo o desenvolvimento de um minerador próprio do zero.
 
-  
+---------------------------------------------------------
+
+# 7. Modelo conceitual e hipóteses
+## 7.1 Modelo conceitual do experimento
+
+O modelo conceitual pressupõe que a natureza dos dados impõe desafios de engenharia de dados de formas diferentes, que se manifestam como tipos diferentes de dívida técnica admitida pelos autores. E acredita-se que o domínio de aplicação influencia diretamente o perfil da SATD da seguinte forma: 
+
+* NLP: Exige pipelines de tokenização e limpeza complexos e instáveis.<br> Expectativa: Maior incidência de Data Dependency e Awareness, devido à complexidade de modelos como Transformers.
+
+* Visão Computacional: Lida com tensores de alta dimensionalidade e gargalos de GPU. <br> Expectativa: Maior incidência de Performance e Configurable Options.
+
+* Dados Tabulares: Frequentemente integra regras de negócio e múltiplas fontes de dados heterogêneas. <br> Expectativa: Maior incidência de Code Dependency e Modularity.
+
+## 7.2 Hipóteses formais (H0, H1)
+
+### RQ1 (Intensidade e Distribuição)
+         
+* H0: Não há diferença significativa na densidade mediana de SATD entre os projetos de NLP, Visão Computacional e Dados Tabulares.
+* H1: Pelo menos um dos domínios apresenta uma densidade mediana de dívida técnica diferente dos demais.
+
+### RQ2 (Perfil Tipológico)
+
+* H0: A distribuição das categorias de dívida é independente do domínio de aplicação, ou seja, a proporção de tipos de dívida é a mesma em qualquer domínio.
+* H1: Existe uma dependência estatística entre o domínio e o tipo de dívida encontrada.
+
+### RQ3 (Severidade e Comunicação)
+
+* H0: A proporção entre comentários críticos e comentários de tarefas é igual entre os três domínios.
+* H1: Determinados domínios apresentam uma proporção significativamente maior de comentários críticos, indicando maior urgência ou severidade na dívida acumulada.
+
+### RQ4 (Maturidade e Contexto)
+
+* H0: Não existe correlação estatisticamente significativa entre os fatores de maturidade do projeto e a densidade de dívida técnica em nenhum dos domínios.
+* H1: Existe uma correlação significativa entre a maturidade/tamanho da equipe e a densidade de dívida técnica.
+
+## 7.3 Nível de significância e considerações de poder
+
+Para o nível de significância será adotado o padrão científico de 0.05 (5%). Resultados com p-value < 0.05 levarão à rejeição da hipótese nula.
+
+Considerando a taxonomia de 9 tipos e 3 domínios (matriz 9x3 = 27 células), e sabendo que alguns tipos de dívida são raros, planeja-se uma amostra total classificada manualmente de aproximadamente 600 SADTs, 200 por cada dominio. Este tamanho amostral é suficiente para detectar um tamanho de efeito médio com um poder estatístico superior a 0.80.
+
+--------------------------------------------------------
+
+# 8. Variáveis, fatores, tratamentos e objetos de estudo
+## 8.1 Objetos de estudo
+
+Os objetos primários de análise são os repositórios de software Open Source hospedados no GitHub, especificamente os arquivos de código-fonte (.py) neles contidos. A unidade granular de análise é o comentário de código identificado como SATD através de padrões léxicos.
+
+## 8.2 Sujeitos / participantes (visão geral)
+
+Os participantes são indiretos e não-intencionais, que é a população global de desenvolvedores de software, engenheiros de Machine Learning e cientistas de dados que contribuíram para os repositórios selecionados ao longo de sua história. Esta população é heterogênea, variando de estudantes e entusiastas a profissionais sêniores de grandes empresas de tecnologia.
+
+## 8.3 Variáveis independentes (fatores) e seus níveis
+
+O fator principal que governa a comparação neste experimento é o domínio de aplicação do software.
+
+* Fator: Domínio de Machine Learning.
+* Níveis: <br>
+(1) Processamento de Linguagem Natural (NLP) <br>
+(2) Visão Computacional (CV) <br> 
+(3) Dados Tabulares
+
+## 8.4 Tratamentos (condições experimentais)
+
+Por ser um estudo observacional, não há manipulação ativa de variáveis. Os "tratamentos" correspondem aos estratos da amostragem.
+
+* Tratamento 1 (NLP): Análise de repositórios dedicados exclusivamente a texto <br> Ex: spaCy, Gensim.
+
+* Tratamento 2 (CV): Análise de repositórios dedicados exclusivamente a imagem/Ex: YOLO, OpenCV-Python.
+
+* Tratamento 3 (Tabular): Análise de repositórios dedicados a dados estruturados/clássicos 
+Ex: XGBoost, Pandas.
+
+
+## 8.5 Variáveis dependentes (respostas)
+
+As respostas observadas são as características da dívida técnica auto admitida:
+
+* Densidade: Quantidade de SATD normalizada pelo tamanho do código.
+* Distribuição Tipológica: Classificação qualitativa da dívida.
+* Severidade: Razão de bugs (FIXME) sobre tarefas (TODO).
+* Maturidade: Coeficientes estatísticos que medem o impacto da maturidade e do tamanho da equipe sobre a densidade de dívida.
+
+## 8.6 Variáveis de controle / bloqueio
+
+Fatores mantidos constantes ou restringidos para isolar o efeito do Domínio e garantir uma comparação justa:
+
+* Linguagem de programação será sempre Python.
+* Apenas projetos com mais de 50 estrelas para manter a relevância.
+* Apenas projetos com commits nos últimos 2 anos.
+
+## 8.7 Possíveis variáveis de confusão conhecidas
+
+Fatores externos que podem influenciar os resultados, mas que não são o foco principal:
+
+* Idade do repositório: Projetos mais antigos tendem a acumular mais dívida naturalmente.
+* Tamanho da equipe: Projetos com centenas de contribuidores podem ter padrões de documentação diferentes de projetos de um único autor.
+* Estilo de governança: Projetos corporativos podem ter regras de linting mais rígidas que projetos comunitários.
+
+## 8.8 Tabelas 
+
+### Tabela de variáveis 
+
+| Tipo de Variável | Nome | Descrição | Unidade/Escala |
+|---|---|---|---|
+| Independente | Domínio de Aplicação | O nicho tecnológico principal do repositório. | Nominal (NLP, CV, Tabular) |
+| Dependente | Densidade de SATD | Frequência de comentários de dívida por linhas de código. | Razão (SATD/KLOC) |
+| Dependente | Categoria da SATD | Classificação do comentário segundo taxonomia de OBrien. | Nominal (9 Categorias) |
+| Dependente | Razão de Severidade | Proporção de comentários indicando erro/bug crítico. | Razão (FIXME/TODO) |
+| Controle | Linguagem | Linguagem de programação analisada. | Nominal (Python) |
+| Controle | Popularidade Mínima | Limite inferior de estrelas para inclusão. | Ordinal (> 50 stars) |
+| Confusão | Idade do Projeto | Tempo de vida do repositório. | Intervalar (Dias) |
+| Confusão | Tamanho da Equipe | Número de contribuidores únicos. | Inteiro |
+
+### Tabela de fator e tratamentos 
+
+| Fator Experimental | Níveis (Tratamentos) | Descrição do Grupo |
+|---|---|---|
+| Domínio de ML | 1. NLP | Repositórios focados em texto (Transformers, Tokenizers). |
+|  | 2. Visão Computacional | Repositórios focados em imagem (Detection, OCR). |
+|  | 3. Tabular | Repositórios focados em dados estruturados (Boosting, Regressão). |
+
+----------------------------------------
+
+# 9. Desenho experimental
+## 9.1 Tipo de desenho
+
+O estudo utilizará um Desenho Observacional Transversal com Amostragem Aleatória Estratificada.
+
+A justificativa se baseia no fato que o desenho é estratificado pois dividimos a população em três subgrupos distintos (NLP, CV, Tabular) e "aleatório" na seleção dos itens individuais (comentários) dentro de cada estrato. Essa abordagem é a mais adequada pois garante que, mesmo que um domínio tenha muito mais volume total de comentários no GitHub, a análise manual será feita sobre uma quantidade igual de itens para cada grupo, evitando viés de prevalência.
+
+## 9.2 Randomização e alocação
+
+A randomização ocorrerá no nível da dívida técnica, seguindo um processo de funil em três etapas:
+
+1. Coleta e extração: Selecionaremos um número alto de repositórios de cada domínio para garantir volume. Serão coletados cerca de 5000 repositórios por domínio. Depois extrairemos todos os comentários contendo as keywords desses repositórios, criando três conjuntos de candidatos a SATD.
+
+2. Sorteio da amostra: Utilizando um script com random.sample() e seed fixa, sortearemos aleatoriamente 300 candidatos a SATD de cada domínio a partir desses conjuntos.
+
+3. Seleção final: Desses 300 sorteados, os primeiros 200 que forem validados manualmente como "verdadeiros positivos", que são realmente dívida técnica e não falso positivo, comporão a amostra final de classificação.
+
+## 9.3 Balanceamento e contrabalanço
+
+* Balanceamento: O experimento será balanceado pela tamanho da amostra de comentários, e não pelo número de repositórios. Cada um dos três grupos contribuirá com exatamente o mesmo número de instâncias classificadas, sendo a meta 200 SATDs válidas por grupo, totalizando 600 análises. Isso assegura que nenhum domínio tenha peso desproporcional na análise estatística comparativa.
+
+* Contrabalanço: Não aplicável, pois não há efeito de ordem ou aprendizado, o comentário extraído é estático e a análise não é repetida no mesmo objeto sob condições diferentes.
+
+## 9.4 Número de grupos e sessões
+
+Para esse estudo, haverão 3 grupos experimentais:
+
+1. Amostra de SATD de NLP.
+2. Amostra de SATD de Visão Computacional.
+3. Amostra de SATD de Dados Tabulares.
+
+Haverá uma sessão única de mineração e classificão, pois os dados representam um snapshot do estado atual da dívida técnica nos projetos. Não haverá coleta de acompanhamento ao longo do tempo, focando na caracterização do perfil atual. Só serão feitas mais sessões caso a primeira não satisfaça o número esperado de dívidas a serem classificadas.
+
+-------------------------------------------
+
+# 10. População, sujeitos e amostragem
+## 10.1 População-alvo
+
+A população-alvo compreende o universo de comentários de dívida técnica auto admitida inseridos no código de projetos de Machine Learning Open Source.
+Esta população representa os desafios técnicos e decisões de design tomadas pela comunidade global de desenvolvedores de Python, desde engenheiros de grandes tech companies até pesquisadores acadêmicos, que mantêm bibliotecas de NLP, Visão Computacional e Dados Tabulares.
+
+## 10.2 Critérios de inclusão de artefatos
+
+Para que um repositório e seus comentários sejam elegíveis para o estudo, devem atender aos seguintes requisitos:
+
+Repositório:
+
+* Hospedado no GitHub.
+* Linguagem principal deve ser Python em mais de 50% do código.
+* Mínimo de 50 estrelas.
+* Possuir commits realizados nos últimos 12 meses.
+* Deve possuir tópicos explícitos identificando o domínio (ex: nlp, computer-vision, tabular).
+
+Comentário (SATD):
+
+* Conter uma das keywords de admissão: TODO, FIXME, HACK, XXX.
+* Estar localizado dentro de um arquivo com extensão .py.
+* Estar escrito em inglês. 
+
+
 # 21. Referências 
 
 * OBRIEN, D. et al. "23 Shades of Self-Admitted Technical Debt: An Empirical Study on Machine Learning Software". In: Proceedings of the 30th ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering (ESEC/FSE '22). Singapore: ACM, 2022. pp. 734–746. DOI: https://doi.org/10.1145/3540250.3549088.

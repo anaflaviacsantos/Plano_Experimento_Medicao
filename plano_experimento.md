@@ -11,9 +11,12 @@ TCC202601001
 ## 1.3 Versão do documento e histórico de revisão
 | Versão | Data	| Alterações Principais |
 | ------ | ----------| ----------------------------- |
-v1.0 | 21/11/2025	| Criação do documento, definição do escopo e seleção dos domínios (seção 1) | 
-v1.1 | 21/11/2025 | Adição da seção 2 e referências | 
-v2.0 | 25/11/2025 | Adição da seção 3 |
+| v1.0 | 21/11/2025	| Criação do documento, definição do escopo e seleção dos domínios (seção 1) | 
+| v1.1 | 21/11/2025 | Adição da seção 2 e referências | 
+| v2.0 | 25/11/2025 | Adição da seção 3 |
+| | | | 
+| | | | 
+| v4.0 | 01/12/2025 | Adição da seção 10 | 
 
 ## 1.4 Datas
 
@@ -450,6 +453,48 @@ Comentário (SATD):
 * Estar localizado dentro de um arquivo com extensão .py.
 * Estar escrito em inglês. 
 
+## 10.3 Critérios de exclusão de artefatos 
+
+Serão removidos da análise:
+
+* Projetos que misturam domínios, por exemplo uma biblioteca que faz "Image Captioning", unindo CV e NLP, pois impediriam a atribuição da dívida a um domínio específico.
+* Projetos identificados como listas de exercícios e tutoriais, pois não refletem a pressão de desenvolvimento de software real.
+* Comentários gerados automaticamente por ferramentas.
+* Keywords encontradas dentro de strings de print/log que são mensagens para o usuário final, e não anotações para o desenvolvedor.
+* Comentários de licença ou copyright.
+
+## 10.4 Tamanho da amostra planejado
+
+Seguindo a estratégia de funil definida no desenho experimental:
+
+* 5000 repositórios por domínio para garantir volume massivo de dívidas brutas.
+* 200 comentários extraídos e validados, por domínio, ou seja: 
+        NLP: 200 SATDs.
+        CV: 200 SATDs.
+        Tabulares: 200 SATDs.
+* No total 600 instâncias de dívida técnica auto admitida classificadas manualmente.
+  
+Este número fornece poder estatístico suficiente para detectar tamanhos de efeito médios em testes qui-quadrado (graus de liberdade = 16 na tabela 9x3), mantendo a viabilidade de execução manual.
+
+## 10.5 Método de seleção / recrutamento
+
+A seleção será realizada de forma automatizada e aleatória:
+
+* Coleta: Script (PyDriller/GitHub API) coleta todos os candidatos a SATD.
+* Randomização: Todos os candidatos de um domínio são colocados em uma lista única e embaralhados com random.shuffle.
+* Seleção sequencial: O pesquisador analisa os candidatos na ordem sorteada.
+        Se for um falso positivo -> Descarta e pega o próximo.
+        Se for SATD válida -> Classifica e adiciona ao grupo.
+* Parada: O processo cessa quando o contador do grupo atinge 200 itens válidos.
+  
+## 10.6 Treinamento e preparação 
+
+Como os "sujeitos" são inanimados, o treinamento aplica-se ao pesquisador para mitigar a subjetividade:
+
+1. Leitura aprofundada das definições e exemplos do paper de OBrien et al. (2022).
+2. Rodada piloto com a classificação de 30 comentários aleatórios (10 de cada domínio) que não farão parte da amostra final.
+3. Discussão dessa classificação piloto com o orientador para alinhar o entendimento.
+4. Criação de um guia de consulta rápida com exemplos canônicos de cada um dos 9 tipos de dívida para manter a consistência durante as sessões de classificação.
 
 # 21. Referências 
 

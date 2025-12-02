@@ -14,8 +14,8 @@ TCC202601001
 | v1.0 | 21/11/2025	| Criação do documento, definição do escopo e seleção dos domínios (seção 1) | 
 | v1.1 | 21/11/2025 | Adição da seção 2 e referências | 
 | v2.0 | 25/11/2025 | Adição da seção 3 |
-| | | | 
-| | | | 
+| v2.1 | 26/11/2025 | Adição das seções 4, 5 e 6 | 
+| v3.0 | 28/11/2025 | Adição da seções 7, 8, 9 | 
 | v4.0 | 01/12/2025 | Adição da seção 10 | 
 
 ## 1.4 Datas
@@ -468,10 +468,7 @@ Serão removidos da análise:
 Seguindo a estratégia de funil definida no desenho experimental:
 
 * 5000 repositórios por domínio para garantir volume massivo de dívidas brutas.
-* 200 comentários extraídos e validados, por domínio, ou seja: 
-        NLP: 200 SATDs.
-        CV: 200 SATDs.
-        Tabulares: 200 SATDs.
+* 200 comentários extraídos e validados, por domínio, ou seja: 200 SADTs de NLP, 200 de Visão Computacional e 200 de Dados Tabulares.
 * No total 600 instâncias de dívida técnica auto admitida classificadas manualmente.
   
 Este número fornece poder estatístico suficiente para detectar tamanhos de efeito médios em testes qui-quadrado (graus de liberdade = 16 na tabela 9x3), mantendo a viabilidade de execução manual.
@@ -482,19 +479,99 @@ A seleção será realizada de forma automatizada e aleatória:
 
 * Coleta: Script (PyDriller/GitHub API) coleta todos os candidatos a SATD.
 * Randomização: Todos os candidatos de um domínio são colocados em uma lista única e embaralhados com random.shuffle.
-* Seleção sequencial: O pesquisador analisa os candidatos na ordem sorteada.
-        Se for um falso positivo -> Descarta e pega o próximo.
-        Se for SATD válida -> Classifica e adiciona ao grupo.
+* Seleção sequencial: O pesquisador analisa os candidatos na ordem sorteada, se for um falso positivo, descarta e pega o próximo, e se for uma SATD válida, classifica e adiciona ao grupo.
 * Parada: O processo cessa quando o contador do grupo atinge 200 itens válidos.
   
 ## 10.6 Treinamento e preparação 
 
-Como os "sujeitos" são inanimados, o treinamento aplica-se ao pesquisador para mitigar a subjetividade:
+Como os "sujeitos" são inanimados, o treinamento é feito pelo pesquisador para mitigar a subjetividade:
 
 1. Leitura aprofundada das definições e exemplos do paper de OBrien et al. (2022).
 2. Rodada piloto com a classificação de 30 comentários aleatórios (10 de cada domínio) que não farão parte da amostra final.
 3. Discussão dessa classificação piloto com o orientador para alinhar o entendimento.
 4. Criação de um guia de consulta rápida com exemplos canônicos de cada um dos 9 tipos de dívida para manter a consistência durante as sessões de classificação.
+
+-----------------------------------------------
+
+# 11. Instrumentação e protocolo operacional
+## 11.1 Instrumentos de coleta
+
+Para executar a mineração e análise, serão desenvolvidos e utilizados os seguintes instrumentos:
+
+* Script de seleção: Script Python que consome a API do GitHub, biblioteca PyGithub, para buscar e filtrar repositórios baseados em tópicos (nlp, cv, tabular), quantidade de estrelas e data do último commit.
+* Script de mineração: Script baseado na biblioteca PyDriller responsável por: clonar temporariamente ou iterar remotamente os repositórios selecionados, percorrer a árvore de arquivos e identificar linhas contendo as keywords (TODO, FIXME, HACK, XXX).
+* Planilha de classificação: Planilha no Google Sheets ou Excel, gerada após a amostragem aleatória, contendo as colunas: ID, Domínio, Link_GitHub, Texto_Comentario, Classificação_Manual e Observações.
+* Notebook de Análise: Jupyter Notebook utilizando Pandas, SciPy e Seaborn para carregar os dados classificados, calcular as métricas e executar os testes estatísticos.
+
+## 11.2 Materiais de suporte
+
+Como o participante da classificação é o próprio pesquisador, os materiais servem para garantir a consistência interna:
+
+* Guia de referência da taxonomia de dívidas: Um documento PDF de uma página contendo a definição resumida dos 9 tipos de dívida de OBrien et al., com 2 ou 3 exemplos canônicos de cada tipo para consulta rápida durante a classificação.
+* Protocolo de Desempate: Um fluxograma de decisão para lidar com comentários ambíguos.
+
+## 11.3 Procedimento experimental 
+
+### 11.3.1 Fase de Seleção e Coleta Automática:
+1. Executar o script de seleção para gerar a lista de URLs dos repositórios alvo (Top 100-200 por domínio).
+2. Executar o script de mineração para extrair todas as ocorrências de SATD brutas.
+3. Gerar o dataset contendo milhares de candidatos a dívida.
+
+### 11.3.2 Fase de Amostragem e Preparação:
+4. Executar script de randomização para embaralhar os dados de cada domínio.
+5. Exportar os primeiros 300 itens sorteados de cada grupo para a planilha de classificação.
+   
+### 11.3.3 Fase de Classificação Manual:
+6. O pesquisador abre a planilha e clica no link do GitHub para ver o contexto do código (o arquivo onde o TODO está).
+7. Verifica se é um falso positivo. Se sim, descarta.
+8. Se for válido, seleciona a categoria adequada no dropdown.
+9. Repete-se o processo até atingir a cota de 200 válidos por domínio.
+    
+### 11.3.4 Fase de Validação:
+10. O orientador seleciona aleatoriamente 10% da amostra classificada e realiza uma "revisão cega".
+11. Calcula-se o Kappa de Cohen. Se for menor que 0.7, o pesquisador revisa seus critérios e reclassifica os dados duvidosos.
+
+### 11.3.4 Fase de Análise de Dados:
+12. O script de análise ingere a planilha final.
+13. Gera tabelas de contingência e gráficos de barras.
+14. Calcula os p-values das hipóteses e exporta os resultados para o texto do TCC.
+
+## 11.4 Plano de piloto
+
+Será realizado um piloto antes da classificação para validar a viabilidade técnica e a clareza da taxonomia.
+
+Escopo: Ciclo completo com apenas 500 repositórios e classificação de 30 comentários, 10 de cada domínio.
+Objetivos:
+* Verificar se o PyDriller consegue ler os repositórios sem erros de timeout.
+* Medir o tempo médio gasto para classificar um comentário (para estimar o cronograma total).
+* Verificar a taxa de Falsos Positivos.
+
+Ajuste:
+* Se a taxa de falsos positivos for maior que 30%, as keywords de busca serão refinadas.
+* Se o tempo por comentário for maior que 5 minutos, o processo de verificação de contexto no GitHub precisará ser otimizado.
+
+---------------------------------------------------
+
+# 12. Plano de análise de dados 
+## 12.1 Estratégia geral de análise
+A análise combinará estatística descritiva e inferencial, organizada conforme as questões de pesquisa:
+
+* RQ1: A variável dependente é contínua (SATD/KLOC). Como métricas de código raramente seguem distribuição normal, compararemos as medianas das densidades entre os três domínios para verificar se há diferença estatisticamente relevante.
+* RQ2: As variáveis são categóricas. Utilizaremos tabelas de contingência cruzando domínio x tipo de dívida para analisar se a distribuição percentual dos 9 tipos muda conforme o domínio.
+* RQ3: Será comparada a proporção de ocorrências de keywords críticas (FIXME) versus comuns (TODO) entre os grupos.
+* RQ4: Será analisada a força da associação entre variáveis numéricas, como idade e tamanho da equipe, verificando se a correlação é mais forte em um domínio do que em outro.
+
+## 12.2 Métodos estatísticos planejados
+
+Dado que métricas de software geralmente possuem distribuições assimétrica, a preferência será por testes não-paramétricos:
+* Teste de Kruskal-Wallis: Utilizado para RQ1. É a alternativa não-paramétrica à ANOVA para comparar mais de dois grupos independentes.
+* Teste Qui-Quadrado de independência: Utilizado para RQ2 e RQ3. Avaliará a dependência entre as variáveis categóricas.
+* Correlação de Spearman: Utilizada para RQ4. Avaliará a correlação monótica entre maturidade e dívida, pois é resistente a outliers e não exige linearidade estrita como Pearson.
+
+## 12.3 Tratamento de dados faltantes e outliers
+
+* Dados Faltantes: Repositórios que ficarem inacessíveis ou vazios durante a coleta serão descartados e substituídos pelo próximo da lista aleatória. Comentários sorteados que, ao serem verificados, já tiverem sido removidos do código, serão descartados e substituídos.
+* Outliers: Não haverá remoção de outliers estatísticos para o cálculo da densidade, a menos que sejam identificados como artefatos gerados automaticamente (falsos positivos). O uso de testes não-paramétricos (Kruskal-Wallis e Spearman) e o reporte de medianas ao invés de médias já mitigam naturalmente a distorção causada por esses valores extremos.
 
 # 21. Referências 
 

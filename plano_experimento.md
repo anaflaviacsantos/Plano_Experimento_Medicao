@@ -537,7 +537,7 @@ Como o participante da classificação é o próprio pesquisador, os materiais s
 13. Gera tabelas de contingência e gráficos de barras.
 14. Calcula os p-values das hipóteses e exporta os resultados para o texto do TCC.
 
-![Metodologia do Experimento](\imagens\metodologia.png)
+![Metodologia do Experimento](/imagens/metodologia.png)
 
 ## 11.4 Plano de piloto
 

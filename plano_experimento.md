@@ -17,6 +17,7 @@ TCC202601001
 | v2.1 | 26/11/2025 | Adição das seções 4, 5 e 6 | 
 | v3.0 | 28/11/2025 | Adição da seções 7, 8, 9 | 
 | v4.0 | 01/12/2025 | Adição da seção 10 | 
+| v4.1 | 02/12/2025 | Adição da seção 11 e 12 | 
 
 ## 1.4 Datas
 
@@ -513,18 +514,18 @@ Como o participante da classificação é o próprio pesquisador, os materiais s
 ## 11.3 Procedimento experimental 
 
 ### 11.3.1 Fase de Seleção e Coleta Automática:
-1. Executar o script de seleção para gerar a lista de URLs dos repositórios alvo (Top 100-200 por domínio).
+1. Executar o script de seleção para gerar a lista de URLs dos repositórios alvo (Top 5000 por domínio).
 2. Executar o script de mineração para extrair todas as ocorrências de SATD brutas.
-3. Gerar o dataset contendo milhares de candidatos a dívida.
+3. Gerar o dataset contendo centenas de candidatos a dívida.
 
 ### 11.3.2 Fase de Amostragem e Preparação:
 4. Executar script de randomização para embaralhar os dados de cada domínio.
 5. Exportar os primeiros 300 itens sorteados de cada grupo para a planilha de classificação.
    
 ### 11.3.3 Fase de Classificação Manual:
-6. O pesquisador abre a planilha e clica no link do GitHub para ver o contexto do código (o arquivo onde o TODO está).
+6. O pesquisador abre a planilha e clica no link do GitHub para ver o contexto do código.
 7. Verifica se é um falso positivo. Se sim, descarta.
-8. Se for válido, seleciona a categoria adequada no dropdown.
+8. Se for válido, seleciona a categoria adequada.
 9. Repete-se o processo até atingir a cota de 200 válidos por domínio.
     
 ### 11.3.4 Fase de Validação:
@@ -535,6 +536,8 @@ Como o participante da classificação é o próprio pesquisador, os materiais s
 12. O script de análise ingere a planilha final.
 13. Gera tabelas de contingência e gráficos de barras.
 14. Calcula os p-values das hipóteses e exporta os resultados para o texto do TCC.
+
+![Metodologia do Experimento](\imagens\metodologia.png)
 
 ## 11.4 Plano de piloto
 
@@ -572,6 +575,19 @@ Dado que métricas de software geralmente possuem distribuições assimétrica, 
 
 * Dados Faltantes: Repositórios que ficarem inacessíveis ou vazios durante a coleta serão descartados e substituídos pelo próximo da lista aleatória. Comentários sorteados que, ao serem verificados, já tiverem sido removidos do código, serão descartados e substituídos.
 * Outliers: Não haverá remoção de outliers estatísticos para o cálculo da densidade, a menos que sejam identificados como artefatos gerados automaticamente (falsos positivos). O uso de testes não-paramétricos (Kruskal-Wallis e Spearman) e o reporte de medianas ao invés de médias já mitigam naturalmente a distorção causada por esses valores extremos.
+
+## 2.4 Plano de análise para dados qualitativos
+
+A análise qualitativa refere-se à etapa de classificação manual dos comentários. 
+
+Técnica: Análise de conteúdo dedutiva. As categorias não emergirão dos dados, mas sim da aplicação de uma teoria pré-existente (a taxonomia de 9 tipos de OBrien et al.).
+
+Procedimento de codificação:
+* Leitura do comentário e do contexto, as linhas adjacentes.
+* Tentativa de mapeamento para uma das 9 categorias.
+* Caso o comentário seja ambíguo e se encaixe em duas categorias, será aplicada a categorização a partir da causa raiz da dívida. Se a ambiguidade persistir, será descartado.
+
+Confiabilidade: Cálculo do coeficiente Kappa de Cohen em uma subamostra de 10% dos dados, reavaliada por um segundo juiz (orientador) ou pelo próprio pesquisador após um intervalo de tempo, para garantir consistência na aplicação das categorias.
 
 # 21. Referências 
 

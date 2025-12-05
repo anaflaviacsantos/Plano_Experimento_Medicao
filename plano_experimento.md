@@ -19,6 +19,7 @@ TCC202601001
 | v4.0 | 01/12/2025 | Adição da seção 10 | 
 | v4.1 | 02/12/2025 | Adição da seção 11 e 12 | 
 | v5.0 | 05/12/2025 | Adição da seção 13 |
+| v5.1 | 05/12/2026 | Adição da seção 14 | 
 
 ## 1.4 Datas
 
@@ -538,7 +539,7 @@ Como o participante da classificação é o próprio pesquisador, os materiais s
 13. Gera tabelas de contingência e gráficos de barras.
 14. Calcula os p-values das hipóteses e exporta os resultados para o texto do TCC.
 
-![Metodologia do Experimento](/imagens/metodologia.png)
+![Metodologia do Experimento](/artefatos/metodologia.png)
 
 ## 11.4 Plano de piloto
 
@@ -654,6 +655,23 @@ Mitigação: O estudo caracteriza o perfil acumulado até o momento, não a taxa
 | Constructo | SATD não representa toda a Dívida Técnica. | Delimitação clara do escopo teórico para dívida técnica auto admitida apenas. |
 | Externa | Foco exclusivo em Python/Open Source. | Definição explícita das fronteiras de generalização nas conclusões. |
 
+---------------------------------------------------
+# 14. Ética, privacidade e conformidade
+## 14.1 Questões éticas
+Por se tratar de uma pesquisa baseada em dados secundários e públicos, não há interação direta com os desenvolvedores, eliminando riscos de coerção, estresse psicológico ou danos físicos.
+No entanto, os exemplos de códigos "ruins" ou com dívida técnica citados no trabalho final não serão utilizados para ridicularizar ou expor negativamente desenvolvedores específicos ou empresas, focando estritamente na análise técnica do artefato.
+
+## 14.2 Consentimento informado
+Devido à natureza da coleta de dados em repositórios públicos (GitHub), a obtenção de consentimento informado individual é inviável e, conforme práticas padrão da comunidade de Engenharia de Software Experimental, considerada dispensável.
+Assume-se que, ao publicar código sob licenças abertas em uma plataforma pública, os desenvolvedores consentem com a leitura e análise de seu código. O estudo respeitará os termos das licenças de software, utilizando os dados apenas para fins de pesquisa acadêmica não-comercial.
+
+## 14.3 Privacidade e proteção de dados
+Embora os dados sejam públicos, os metadados dos commits contêm informações pessoais, como nomes e e-mails dos autores. Para conformidade com princípios de proteção de dados e boas práticas de pesquisa:
+
+* O script coletará o nome/autor apenas para fins de controle de qualidade (evitar contar o mesmo autor muitas vezes se necessário), mas não para perfilamento.
+* Nos datasets finais (CSVs) que serão tornados públicos ou anexados ao TCC, as colunas de Author Name e Email serão removidas ou substituídas por IDs hash.
+* Nenhuma lista de contatos ou e-mails de desenvolvedores será publicada no corpo do trabalho.
+  
 
 # 21. Referências 
 

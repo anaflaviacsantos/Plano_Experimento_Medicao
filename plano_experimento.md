@@ -18,6 +18,7 @@ TCC202601001
 | v3.0 | 28/11/2025 | Adição da seções 7, 8, 9 | 
 | v4.0 | 01/12/2025 | Adição da seção 10 | 
 | v4.1 | 02/12/2025 | Adição da seção 11 e 12 | 
+| v5.0 | 05/12/2025 | Adição da seção 13 |
 
 ## 1.4 Datas
 
@@ -588,6 +589,71 @@ Procedimento de codificação:
 * Caso o comentário seja ambíguo e se encaixe em duas categorias, será aplicada a categorização a partir da causa raiz da dívida. Se a ambiguidade persistir, será descartado.
 
 Confiabilidade: Cálculo do coeficiente Kappa de Cohen em uma subamostra de 10% dos dados, reavaliada por um segundo juiz (orientador) ou pelo próprio pesquisador após um intervalo de tempo, para garantir consistência na aplicação das categorias.
+
+--------------------------------------------------------------------------
+# 13. Avaliação de validade (ameaças e mitigação)
+## 13.1 Validade de conclusão
+
+Refere-se à capacidade de tirar conclusões estatísticas corretas sobre as relações entre as variáveis.
+
+* Risco de não detectar uma diferença entre os domínios mesmo que ela exista, devido a uma amostra pequena.
+Mitigação: O planejamento de classificar 600 instâncias é calculado para detectar tamanhos de efeito médios com poder > 0.80.
+
+* O uso de testes paramétricos em dados que não seguem distribuição normal invalidaria os resultados.
+Mitigação: Uso exclusivo de testes não-paramétricos robustos como Kruskal-Wallis e Spearman que não assumem normalidade dos dados.
+
+* A classificação manual dos tipos de dívida é subjetiva. Se o classificador mudar de critério no meio do processo, os dados tornam-se ruidosos.
+Mitigação: Cálculo do Kappa de Cohen em uma subamostra e revalidação cruzada com o orientador.
+
+## 13.2 Validade interna
+
+Refere-se à certeza de que o fator experimental (domínio) é a causa real das diferenças observadas, e não outros fatores ocultos.
+
+* Pode acontecer viés de seleção, por exemplo, se selecionarmos apenas as bibliotecas mais populares para NLP e bibliotecas menores para Tabular, a diferença na dívida pode ser causada pela maturidade e não pelo domínio.
+Mitigação: Amostragem estratificada aleatória baseada no mesmo critério de corte, mais que 50 estrelas, para todos os grupos.
+
+* Variáveis de confusão, por exemplo, o tamanho da equipe ou a idade do projeto podem influenciar a dívida.
+Mitigação: Inclusão da RQ4 especificamente para medir e controlar estatisticamente o impacto dessas variáveis sobre os resultados.
+
+* Problemas na instrumentação, por exemplo, o script de mineração pode falhar em capturar certos arquivos ou interpretar incorretamente comentários multilinha.
+Mitigação: Validação manual de uma amostra aleatória de extrações brutas antes da classificação final.
+
+## 13.3 Validade de constructo
+
+Refere-se à adequação das medidas operacionais para representar os conceitos teóricos.
+
+* Assumir que as keywords selecionadas representam toda a dívida técnica do projeto. Dívidas não documentadas não serão capturadas.
+Mitigação: Deixar explícito no texto que o estudo mede Dívida Técnica Auto Admitida (SATD) e não a dívida técnica total. SATD é um proxy validado na literatura, mas não é o todo.
+
+* As categorias usadas para classificar as SADTs podem ter fronteiras tênues, levando a classificações equivocadas.
+Mitigação: Adoção estrita da taxonomia de OBrien et al., utilizando suas definições formais e exemplos canônicos como guia de referência durante a classificação.
+
+* As keywords selecionadas podem não cobrir todas as formas de admissão de dívida.
+Mitigação: Aceitar essa limitação como padrão em estudos de MSR, citando trabalhos anteriores (Maldonado) que indicam que essas keywords cobrem a grande maioria dos casos intencionais.
+
+13.4 Validade externa
+
+Refere-se à generalização dos resultados para outros contextos.
+
+* Os resultados vêm de projetos Open Source, que possuem dinâmicas de pressão e qualidade diferentes de software proprietário/comercial, portando não representam a indústria.
+Mitigação: Limitar as conclusões ao contexto de ecossistema Open Source de Machine Learning, sem alegar que se aplicam a empresas fechadas.
+
+* O estudo foca apenas em Python. Os resultados podem não se aplicar a ML feito em C++, R ou Julia.
+Mitigação: Explicitar a restrição no título e no escopo.
+
+Efeito Temporal: A análise é um snapshot. A dívida técnica é dinâmica e pode ter sido resolvida na semana seguinte à coleta.
+Mitigação: O estudo caracteriza o perfil acumulado até o momento, não a taxa de resolução.
+
+13.5 Resumo das principais ameaças e estratégias de mitigação
+
+| Tipo de Validade | Ameaça Principal | Estratégia de Mitigação Planejada |
+|---|---|---|
+| Conclusão | Subjetividade na classificação manual (ruído nos dados). | Validação cruzada de 10% da amostra e cálculo do Kappa de Cohen. |
+| Conclusão | Violação de normalidade nos dados. | Uso de testes não-paramétricos (Kruskal-Wallis, Spearman). |
+| Interna | Viés de seleção (projetos incomparáveis). | Amostragem aleatória estratificada com critérios de inclusão rígidos e iguais. |
+| Constructo | SATD não representa toda a Dívida Técnica. | Delimitação clara do escopo teórico para dívida técnica auto admitida apenas. |
+| Externa | Foco exclusivo em Python/Open Source. | Definição explícita das fronteiras de generalização nas conclusões. |
+
 
 # 21. Referências 
 

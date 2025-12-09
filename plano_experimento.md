@@ -19,7 +19,8 @@ TCC202601001
 | v4.0 | 01/12/2025 | Adição da seção 10 | 
 | v4.1 | 02/12/2025 | Adição da seção 11 e 12 | 
 | v5.0 | 05/12/2025 | Adição da seção 13 |
-| v5.1 | 05/12/2026 | Adição da seção 14 | 
+| v5.1 | 05/12/2025 | Adição da seção 14 | 
+| v6.0 | 09/12/2025 | Adição da seção 15 e 16 | 
 
 ## 1.4 Datas
 
@@ -706,6 +707,23 @@ Para a execução da mineração e análise, será utilizado o seguinte ambiente
 | Mês 2 e 3 | Classificação | Classificação manual dos 600 comentários. | Dataset classificado e validado.  |
 | Mês 4 | Análise | Execução dos testes estatísticos e geração de gráficos. | Resultados preliminares e tabelas geradas.  |
 | Mês 5 | Escrita | Redação dos capítulos de resultados, discussão e conclusão. | Versão final do texto para a banca. |
+
+## 16.2 Dependências entre atividades
+A execução segue um fluxo linear estrito, na qual o atraso em uma etapa bloqueia a seguinte:
+
+* Seleção -> Mineração: A lista de repositórios deve estar finalizada e validada antes de iniciar o script de mineração.
+* Mineração -> Piloto: É necessário ter dados reais extraídos para realizar o piloto de classificação.
+* Piloto -> Classificação: A classificação dos 600 itens não deve iniciar antes que o orientador valide o resultado do piloto. Se houver erro de interpretação da taxonomia, classificar tudo antes de validar geraria retrabalho total.
+* Classificação -> Análise Estatística: Os testes de hipótese só podem ser rodados após a conclusão e limpeza da planilha de classificação.
+
+## 16.3 Riscos operacionais e plano de contingência
+
+| Risco Identificado | Probabilidade | Impacto | Plano de Contingência  |
+|---|---|---|---|
+| Bloqueio da API do GitHub | Média | Médio | Usar múltiplos Access Tokens ou inserir delays no script de mineração, aceitando que a coleta demorará mais dias.  |
+| Baixa qualidade dos comentários (muitos falsos positivos) | Média | Alto | Se as keywords trouxerem muitos falsos positivos, o tamanho da amostra válida cairá. Contingência: Aumentar o pool de extração inicial em 50% para garantir que sobrem 200 itens válidos após filtragem.  |
+| Resultados inconclusivos (p-value > 0.05) | Média | Baixo | Risco científico, não operacional. Contingência: Focar a discussão na análise qualitativa dos exemplos e na refutação das hipóteses, o que também é uma contribuição científica válida. |
+
 
 # 21. Referências 
 

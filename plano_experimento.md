@@ -632,7 +632,7 @@ Mitigação: Adoção estrita da taxonomia de OBrien et al., utilizando suas def
 * As keywords selecionadas podem não cobrir todas as formas de admissão de dívida.
 Mitigação: Aceitar essa limitação como padrão em estudos de MSR, citando trabalhos anteriores (Maldonado) que indicam que essas keywords cobrem a grande maioria dos casos intencionais.
 
-13.4 Validade externa
+## 13.4 Validade externa
 
 Refere-se à generalização dos resultados para outros contextos.
 
@@ -645,7 +645,7 @@ Mitigação: Explicitar a restrição no título e no escopo.
 Efeito Temporal: A análise é um snapshot. A dívida técnica é dinâmica e pode ter sido resolvida na semana seguinte à coleta.
 Mitigação: O estudo caracteriza o perfil acumulado até o momento, não a taxa de resolução.
 
-13.5 Resumo das principais ameaças e estratégias de mitigação
+## 13.5 Resumo das principais ameaças e estratégias de mitigação
 
 | Tipo de Validade | Ameaça Principal | Estratégia de Mitigação Planejada |
 |---|---|---|
@@ -671,7 +671,41 @@ Embora os dados sejam públicos, os metadados dos commits contêm informações 
 * O script coletará o nome/autor apenas para fins de controle de qualidade (evitar contar o mesmo autor muitas vezes se necessário), mas não para perfilamento.
 * Nos datasets finais (CSVs) que serão tornados públicos ou anexados ao TCC, as colunas de Author Name e Email serão removidas ou substituídas por IDs hash.
 * Nenhuma lista de contatos ou e-mails de desenvolvedores será publicada no corpo do trabalho.
+
+--------------------------------------
+# 15 Recursos, infraestrutura e orçamento
+
+## 15.1 Recursos humanos e papéis
+A equipe é composta pelos papéis acadêmicos padrão:
+Pesquisador (aluno): Responsável pela implementação dos scripts de mineração, execução da coleta de dados, classificação manual das 600 instâncias de SATD, análise estatística e escrita do relatório.
+Orientador: Responsável pela validação do desenho experimental, revisão do protocolo de classificação, validação cruzada de uma amostra dos dados e revisão final do texto.
+
+## 15.2 Infraestrutura técnica necessária
+Para a execução da mineração e análise, será utilizado o seguinte ambiente:
+
+* Hardware: Computador pessoal com processador multi-core, mínimo de 8GB de RAM e 50GB de armazenamento livre. 
+* Linguagem: Python 3.9+.
+* Bibliotecas: PyDriller (Mineração), PyGithub (Seleção), Pandas/Scipy (Análise).
+* Credenciais: Personal Access Token do GitHub configurado para aumentar os limites de requisição da API durante a fase de seleção.
   
+## 15.3 Materiais e insumos
+
+* Digitais: Planilha mestre de classificação e o "Guia de Referência da Taxonomia" elaborado na fase de preparação para consulta durante a classificação manual.
+* Backup: Repositório privado para versionamento dos scripts e conta em nuvem para backup diário dos datasets gerados, mitigando risco de perda de dados.
+
+--------------------------------------------
+
+# 16 Cronograma, marcos e riscos operacionais
+## 16.1 Macrocronograma
+
+| Mês / Semana | Fase | Atividade Principal | Entregável  |
+|---|---|---|---|
+| Mês 1 | Preparação | Desenvolvimento e teste dos scripts, leitura aprofundada da taxonomia. | Scripts funcionais e lista de repositórios selecionados.  |
+| Mês 1 | Piloto | Execução do estudo piloto e alinhamento com orientador. | Validação do protocolo de classificação.  |
+| Mês 2 | Coleta | Mineração massiva e amostragem aleatória dos dados brutos. | Dataset bruto com candidatos a SATD gerado.  |
+| Mês 2 e 3 | Classificação | Classificação manual dos 600 comentários. | Dataset classificado e validado.  |
+| Mês 4 | Análise | Execução dos testes estatísticos e geração de gráficos. | Resultados preliminares e tabelas geradas.  |
+| Mês 5 | Escrita | Redação dos capítulos de resultados, discussão e conclusão. | Versão final do texto para a banca. |
 
 # 21. Referências 
 

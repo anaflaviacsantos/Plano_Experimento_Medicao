@@ -21,6 +21,7 @@ TCC202601001
 | v5.0 | 05/12/2025 | Adição da seção 13 |
 | v5.1 | 05/12/2025 | Adição da seção 14 | 
 | v6.0 | 09/12/2025 | Adição da seção 15 e 16 | 
+| v6.1 | 11/12/2025 | Adição da seção 17 e 18 | 
 
 ## 1.4 Datas
 
@@ -723,6 +724,36 @@ A execução segue um fluxo linear estrito, na qual o atraso em uma etapa bloque
 | Bloqueio da API do GitHub | Média | Médio | Usar múltiplos Access Tokens ou inserir delays no script de mineração, aceitando que a coleta demorará mais dias.  |
 | Baixa qualidade dos comentários (muitos falsos positivos) | Média | Alto | Se as keywords trouxerem muitos falsos positivos, o tamanho da amostra válida cairá. Contingência: Aumentar o pool de extração inicial em 50% para garantir que sobrem 200 itens válidos após filtragem.  |
 | Resultados inconclusivos (p-value > 0.05) | Média | Baixo | Risco científico, não operacional. Contingência: Focar a discussão na análise qualitativa dos exemplos e na refutação das hipóteses, o que também é uma contribuição científica válida. |
+
+-------------------------------------------------
+
+# 17. Governança do experimento
+## 17.1 Papéis e responsabilidades formais
+A estrutura de decisão segue a hierarquia acadêmica do projeto:
+* Pesquisador: Responsável por executar todas as etapas operacionai, documentar os resultados e propor ajustes metodológicos e toma ecisões operacionais de baixo nível, como refatoração do código de mineração.
+* Orientador: Responsável pelo protocolo experimental, validar a amostragem e a aplicação da taxonomia, além de aprovar a versão final do texto. Toma decisões estratégicas de alto nível, como corte de escopo.
+
+## 17.2 Ritos de acompanhamento pré-execução
+Para garantir o alinhamento antes do início da fase intensiva de coleta, estabelecem-se os seguintes pontos de controle:
+
+### 17.2.1 Reunião de Aprovação do Plano (Kick-off):
+* Objetivo: Validar este documento de planejamento e as hipóteses propostas.
+* Participantes: Aluno e Orientador.
+  
+### 17.2.2 Revisão do Piloto:
+* Objetivo: Analisar os primeiros 30 comentários classificados no estudo piloto. Verificar se o entendimento da taxonomia está alinhado e se a taxa de falsos positivos é aceitável.
+* Decisão: Go / No-Go para a classificação massiva dos 600 itens restantes.
+* Participantes: Aluno e Orientador.
+
+### 17.2.3 Sincronização Semanal:
+* Objetivo: Reportar progresso da coleta e discutir dúvidas pontuais sobre casos de borda na classificação.
+* Participantes: Aluno e Orientador.
+  
+## 17.3 Processo de controle de mudanças no plano
+Dado que a pesquisa empírica pode revelar imprevistos nos dados, as mudanças serão geridas da seguinte forma:
+
+* Mudanças operacionais: Ajustes em scripts ou otimização de performance que não alteram a metodologia são decididos pelo pesquisador e registrados no histórico de commits do repositório.
+* Mudanças de escopo/metodologia: Alterações que impactam a validade científica devem ser formalizadas por e-mail ou ata de reunião pelo aluno e aprovadas explicitamente pelo orientador.
 
 
 # 21. Referências 

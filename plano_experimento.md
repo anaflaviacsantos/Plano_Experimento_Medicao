@@ -755,6 +755,35 @@ Dado que a pesquisa empírica pode revelar imprevistos nos dados, as mudanças s
 * Mudanças operacionais: Ajustes em scripts ou otimização de performance que não alteram a metodologia são decididos pelo pesquisador e registrados no histórico de commits do repositório.
 * Mudanças de escopo/metodologia: Alterações que impactam a validade científica devem ser formalizadas por e-mail ou ata de reunião pelo aluno e aprovadas explicitamente pelo orientador.
 
+-----------------------------------------
+
+# 18 Plano de documentação e reprodutibilidade
+## 18.1 Repositórios e convenções de nomeação
+
+Estrutura de diretórios: <br>
+/src: Scripts de mineração. <br>
+/data:  <br>
+/raw: Dados brutos extraídos.  <br>
+/processed: Dados limpos e classificados manualmente.  <br>
+/docs: Documentação do planejament, cheat sheet da taxonomia e aprovações.  <br>
+/notebooks: Jupyter Notebooks contendo a análise estatística e geração de gráficos.
+
+Convenções de nomeação:
+* Scripts: Nomes descritivos em inglês (ex: extract_comments.py).
+* Commits: Padrão de commits já aceito pela comunidade (ex: feat: add keyword filter, docs: update taxonomy guide).
+
+## 18.2 Templates e artefatos padrão
+Os seguintes artefatos padronizados serão criados e armazenados na pasta /docs para garantir consistência:
+
+* Guia de referência da taxonomia: Documento de uma página com as definições dos 9 tipos de SATD (OBrien et al.) e exemplos de código para consulta durante a classificação.
+* Template de classificação: Modelo vazio da planilha usada para a classificação manual, contendo os cabeçalhos fixos e validação de dados nas colunas de categoria.
+
+## 18.3 Plano de empacotamento para replicação futura
+Para garantir que o experimento seja reproduzível por terceiros, será gerado um Pacote de Replicação ao final do TCC, contendo:
+
+Snapshot do dataset: O arquivo CSV final anonimizado contendo os 600 comentários com suas respectivas classificações e métricas calculadas.
+Ambiente virtual: Arquivo requirements.txt listando as versões exatas de todas as bibliotecas utilizadas para evitar que atualizações futuras quebrem os scripts.
+Instruções de execução: Um guia passo a passo explicando como configurar o ambiente Python, como rodar o script de mineração para obter novos dados, como executar o notebook para gerar os mesmos gráficos apresentados na monografia.
 
 # 21. Referências 
 
